@@ -25,7 +25,7 @@ func TestCastString_Success(t *testing.T) {
 	}{
 		{"URI", "http://google.com", stringURI, Constraints{MaxLength: 100, MinLength: 4, Pattern: ".*"}},
 		{"Email", "foo@bar.com", stringEmail, Constraints{Pattern: ".*@bar.com*", MinLength: 3}},
-		{"UUID", "C56A4180-65AA-42EC-A945-5FD21DEC0538", stringUUID, Constraints{Pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}"}},
+		{"UUID", "C56A4180-65AA-42EC-A945-5FD21DEC0538", stringUUID, Constraints{Pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}", MinLength: 36, MaxLength: 36}},
 	}
 	for _, d := range data {
 		v, err := decodeString(d.Format, d.Value, d.constraints)
