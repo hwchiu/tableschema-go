@@ -52,8 +52,11 @@ type Constraints struct {
 	// represent null values.
 	Required bool `json:"required,omitempty"`
 
-	Maximum string `json:"maximum,omitempty"`
-	Minimum string `json:"minimum,omitempty"`
+	Maximum   string `json:"maximum,omitempty"`
+	Minimum   string `json:"minimum,omitempty"`
+	Pattern   string `json:"pattern,omitempty"`
+	MaxLength int    `json:"maxlength,omitempty"`
+	MinLength int    `json:"minlength,omitempty"`
 }
 
 // Field describes a single field in the table schema.
