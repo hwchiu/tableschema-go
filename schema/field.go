@@ -130,7 +130,7 @@ func (f *Field) Decode(value string) (interface{}, error) {
 	case IntegerType:
 		return castInt(f.BareNumber, value, f.Constraints)
 	case StringType:
-		return castString(f.Format, value)
+		return decodeString(f.Format, value, f.Constraints)
 	case BooleanType:
 		return castBoolean(value, f.TrueValues, f.FalseValues)
 	case NumberType:

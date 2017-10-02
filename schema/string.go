@@ -58,26 +58,7 @@ func decodeString(format, value string, c Constraints) (string, error) {
 		}
 		return value, err
 	}
-	// NOTE: Returning the value for unknown format is in par with the python library.
 
-	return value, nil
-
-}
-func castString(format, value string) (string, error) {
-	switch format {
-	case stringURI:
-		_, err := url.ParseRequestURI(value)
-		return value, err
-	case stringEmail:
-		_, err := mail.ParseAddress(value)
-		return value, err
-	case stringUUID:
-		v, err := uuid.FromString(value)
-		if v.Version() != stringUUIDVersion {
-			return value, fmt.Errorf("invalid UUID version - got:%d want:%d", v.Version(), stringUUIDVersion)
-		}
-		return value, err
-	}
 	// NOTE: Returning the value for unknown format is in par with the python library.
 	return value, nil
 }
