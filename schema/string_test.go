@@ -18,16 +18,17 @@ func TestCastString_InvalidUUIDVersion(t *testing.T) {
 
 func TestCastString_Success(t *testing.T) {
 	var data = []struct {
-		Desc   string
-		Value  string
-		Format string
+		Desc        string
+		Value       string
+		Format      string
+		constraints Constraints
 	}{
-		{"URI", "http://google.com", stringURI},
-		{"Email", "foo@bar.com", stringEmail},
-		{"UUID", "C56A4180-65AA-42EC-A945-5FD21DEC0538", stringUUID},
+		{"URI", "http://google.com", stringURI, Constraints{MaxLength: 100, MinLength: 4, Pattern: ".*"}},
+		{"Email", "foo@bar.com", stringEmail, Constraints{Pattern: ".*@bar.com*", MinLength: 3}},
+		{"UUID", "C56A4180-65AA-42EC-A945-5FD21DEC0538", stringUUID, Constraints{Pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}"}},
 	}
 	for _, d := range data {
-		v, err := castString(d.Format, d.Value)
+		v, err := decodeString(d.Format, d.Value, d.constraints)
 		if err != nil {
 			t.Errorf("want:nil got:%q", err)
 		}
