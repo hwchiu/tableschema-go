@@ -4,14 +4,14 @@ import "testing"
 
 // To be in par with the python library.
 func TestCastString_URIMustRequireScheme(t *testing.T) {
-	if _, err := castString(stringURI, "google.com"); err == nil {
+	if _, err := decodeString(stringURI, "google.com", Constraints{Pattern: "*.com"}); err == nil {
 		t.Errorf("want:err got:nil")
 	}
 }
 
 func TestCastString_InvalidUUIDVersion(t *testing.T) {
 	// This is a uuid3: namespace DNS and python.org.
-	if _, err := castString(stringUUID, "6fa459ea-ee8a-3ca4-894e-db77e160355e"); err == nil {
+	if _, err := decodeString(stringUUID, "6fa459ea-ee8a-3ca4-894e-db77e160355e", Constraints{MaxLength: 36, MinLength: 36}); err == nil {
 		t.Errorf("want:err got:nil")
 	}
 }
