@@ -18,15 +18,12 @@ const (
 )
 
 func checkStringConstraints(v, pattern string, min, max int, t string) (string, error) {
-	fmt.Println(pattern)
-	fmt.Println(min, len(v))
-	fmt.Println(max)
-	if min != 0 && len(v) <= min {
-		return v, fmt.Errorf("constraint check error: %s:%v < minimum:%v", t, v, min)
+	if min != 0 && len(v) < min {
+		return v, fmt.Errorf("constraint check error: %s:%v  %v < minimum:%v", t, v, len(v), min)
 	}
 
-	if max != 0 && len(v) >= max {
-		return v, fmt.Errorf("constraint check error: %s:%v > maximum:%v", t, v, max)
+	if max != 0 && len(v) > max {
+		return v, fmt.Errorf("constraint check error: %s:%v  %v> maximum:%v", t, v, len(v), max)
 	}
 
 	if pattern != "" {
